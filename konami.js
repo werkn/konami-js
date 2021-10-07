@@ -16,10 +16,15 @@ konami.load = () => {
 konami.sequenceIndex = 0;
 
 konami.injectIFrame = () => {
+
+    //make an iFrame center align with video overlay and fill 80% of width/height
     const iFramePlayer = 
     `
-    <iframe width="420" height="315" src="https://www.youtube.com/embed/ZZ5LpwO-An4?autoplay=1"> </iframe>
-
+    <iframe 
+        style="position:fixed; top:10%; left:10%; bottom:0; right:0; width:80%; height:80%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" 
+        width="100%" height="100%" 
+        src="https://www.youtube.com/embed/ZZ5LpwO-An4?autoplay=1">
+    </iframe>
     `
 
     const iFrameContainer = document.createElement("div")
@@ -56,7 +61,6 @@ konami.handleKonamiSequence = (e) => {
         //secondary name of key
         case konami.sequence[konami.sequenceIndex][1]:
             konami.sequenceIndex++;
-            console.log(`Got ${e.key} advancing to next code!`);
             if (konami.sequenceIndex == konami.sequence.length) {
                 konami.injectIFrame();
                 konami.sequenceIndex = 0;  
@@ -65,7 +69,6 @@ konami.handleKonamiSequence = (e) => {
         default:
             //reset sequenceIndex, something other than
             //code sequence entered
-            console.log(`Code reset!`);
             konami.sequenceIndex = 0;  
     }
 }
